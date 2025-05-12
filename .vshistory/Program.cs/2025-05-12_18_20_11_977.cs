@@ -414,11 +414,10 @@ namespace Edee_Final_Project
         static void DisplayLeaderboard(GameState game)
         {
             Console.WriteLine("PLAYERS\t\tTOTAL WINS");
-            Console.WriteLine("------------------------------");
+            Console.WriteLine("------------------------------------------");
             for (int i = 0; i < game.AllPlayers.Count; i++)
             {
                 Console.WriteLine($"{i+1}. {game.AllPlayers[i].Name}  {game.AllPlayers[i].TotalWinnings}");
-                Console.WriteLine("------------------------------");
             }
 
             Console.WriteLine("\nPress any key to exit this screen.");
