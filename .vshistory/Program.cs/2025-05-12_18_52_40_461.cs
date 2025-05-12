@@ -127,6 +127,17 @@ namespace Edee_Final_Project
 
                 Console.Write($"Name of Player {i+1}: "); 
                 player.Name = Console.ReadLine(); //Entering a player
+        
+
+                foreach (Player existingPlayer in playersInRound)
+                {
+                    if (existingPlayer.Name == player.Name)
+                    {
+                        Console.Write("That name is already taken. Please choose another: ");
+                        break; // Exit the foreach loop early
+                    }
+                }
+
                 player.TotalWinnings = 0; //The player starts with a total winning of 0;
                 playersInRound.Add(player); //Adding the player to the player list for THIS round
 

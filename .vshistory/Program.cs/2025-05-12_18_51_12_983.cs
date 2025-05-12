@@ -130,6 +130,15 @@ namespace Edee_Final_Project
                 player.TotalWinnings = 0; //The player starts with a total winning of 0;
                 playersInRound.Add(player); //Adding the player to the player list for THIS round
 
+                foreach (Player existingPlayer in playersInRound)
+                {
+                    if (existingPlayer.Name.ToLower() == player.Name.ToLower())
+                    {
+                        Console.WriteLine("That name is already taken. Please choose another.");
+                        break; // Exit the foreach loop early
+                    }
+                }
+
                 //Checking if the player is already in the ALL PLAYERS list (same name)
                 for (int j =0; j < game.AllPlayers.Count; j++)
                 {

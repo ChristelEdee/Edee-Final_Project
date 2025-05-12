@@ -118,6 +118,7 @@ namespace Edee_Final_Project
         static void SetUpGame(GameState game, ref List<Player> playersInRound)
         {
             const int NUM_PLAYERS = 4;
+            string[] playerNames = new string[NUM_PLAYERS];
 
             Console.WriteLine("\nWELCOME TO UNO\n");
 
@@ -127,11 +128,18 @@ namespace Edee_Final_Project
 
                 Console.Write($"Name of Player {i+1}: "); 
                 player.Name = Console.ReadLine(); //Entering a player
+
+                while(playerNames.Contains(player.Name))
+                {
+                    Console.WriteLine("That player is already in the game. Enter another one: ");
+                    player.Name = Console.ReadLine();
+                }
+
                 player.TotalWinnings = 0; //The player starts with a total winning of 0;
                 playersInRound.Add(player); //Adding the player to the player list for THIS round
 
                 //Checking if the player is already in the ALL PLAYERS list (same name)
-                for (int j =0; j < game.AllPlayers.Count; j++)
+                for(int j =0; j < game.AllPlayers.Count; j++)
                 {
                     //If the same player is playing again, their total wins get transfered
                     if(player.Name == game.AllPlayers[j].Name)

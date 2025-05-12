@@ -131,7 +131,7 @@ namespace Edee_Final_Project
                 playersInRound.Add(player); //Adding the player to the player list for THIS round
 
                 //Checking if the player is already in the ALL PLAYERS list (same name)
-                for (int j =0; j < game.AllPlayers.Count; j++)
+                for(int j =0; j < game.AllPlayers.Count; j++)
                 {
                     //If the same player is playing again, their total wins get transfered
                     if(player.Name == game.AllPlayers[j].Name)

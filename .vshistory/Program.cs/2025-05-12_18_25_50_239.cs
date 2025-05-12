@@ -128,10 +128,11 @@ namespace Edee_Final_Project
                 Console.Write($"Name of Player {i+1}: "); 
                 player.Name = Console.ReadLine(); //Entering a player
                 player.TotalWinnings = 0; //The player starts with a total winning of 0;
+
                 playersInRound.Add(player); //Adding the player to the player list for THIS round
 
                 //Checking if the player is already in the ALL PLAYERS list (same name)
-                for (int j =0; j < game.AllPlayers.Count; j++)
+                for(int j =0; j < game.AllPlayers.Count; j++)
                 {
                     //If the same player is playing again, their total wins get transfered
                     if(player.Name == game.AllPlayers[j].Name)
@@ -416,7 +417,7 @@ namespace Edee_Final_Project
 
             Console.WriteLine("LEADERBOARD\n\n");
 
-            Console.WriteLine("PLAYERS\t\t  TOTAL WINS");
+            Console.WriteLine("PLAYERS\t\tTOTAL WINS");
             Console.WriteLine("------------------------------");
             for (int i = 0; i < game.AllPlayers.Count; i++)
             {
