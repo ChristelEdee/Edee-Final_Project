@@ -399,7 +399,7 @@ namespace Edee_Final_Project
 
                 for(int j = i; j < game.AllPlayers.Count; j++)
                 {
-                    if (game.AllPlayers[j].TotalWinnings > game.AllPlayers[min_index].TotalWinnings) 
+                    if (game.AllPlayers[j].TotalWinnings > game.AllPlayers[min_index].TotalWinnings)
                         min_index = j;
                 }
 

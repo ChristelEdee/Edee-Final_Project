@@ -63,8 +63,7 @@ namespace Edee_Final_Project
                 switch (menuChoice)
                 {
                     case 1:
-                        SortLeaderboard(game); //Sorting the leaderboard
-                        DisplayLeaderboard(game); //Displaying the leaderboard
+                        DisplayLeaderboard(game);
                     break;
 
                     case 2:
@@ -100,11 +99,9 @@ namespace Edee_Final_Project
                 Console.Write($"Name of Player {i+1}: "); 
                 player.Name = Console.ReadLine(); //Entering a player
 
-                //Making sure that the user doesn't enter the same player twice:
                 while (playersInRound.Contains(player))
                 {
                     Console.Write("That player is already in the round. Enter another one: ");
-                    player.Name = Console.ReadLine();
                 }
 
                 player.TotalWinnings = 0; //The player starts with a total winning of 0;
@@ -134,7 +131,7 @@ namespace Edee_Final_Project
         {
             int turnCount = 0;
             bool isClockwise = true;
-            bool isThereWinner = true;
+            bool isThereWinner = false;
             string? winner = null;
 
             while (game.DrawDeck.CardsLeft != 0)
@@ -389,28 +386,7 @@ namespace Edee_Final_Project
             Console.WriteLine("\nPress any key to exit this screen.");
             Console.ReadLine();
         }
-        static void SortLeaderboard(GameState game)
-        {
-            int min_index;
 
-            for(int i =0; i < game.AllPlayers.Count;i++)
-            {
-                min_index = i;
-
-                for(int j = i; j < game.AllPlayers.Count; j++)
-                {
-                    if (game.AllPlayers[j].TotalWinnings > game.AllPlayers[min_index].TotalWinnings) 
-                        min_index = j;
-                }
-
-                if(min_index != i)
-                {
-                    Player temp = game.AllPlayers[i];
-                    game.AllPlayers[i] = game.AllPlayers[min_index];
-                    game.AllPlayers[min_index] = temp;
-                }
-            }
-        }
         static void DisplayLeaderboard(GameState game)
         {
             Console.Clear();

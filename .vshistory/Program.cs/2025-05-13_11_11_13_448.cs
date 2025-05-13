@@ -63,8 +63,8 @@ namespace Edee_Final_Project
                 switch (menuChoice)
                 {
                     case 1:
-                        SortLeaderboard(game); //Sorting the leaderboard
-                        DisplayLeaderboard(game); //Displaying the leaderboard
+                        SortLeaderboard(game);
+                        DisplayLeaderboard(game);
                     break;
 
                     case 2:
@@ -134,7 +134,7 @@ namespace Edee_Final_Project
         {
             int turnCount = 0;
             bool isClockwise = true;
-            bool isThereWinner = true;
+            bool isThereWinner = false;
             string? winner = null;
 
             while (game.DrawDeck.CardsLeft != 0)
@@ -399,7 +399,7 @@ namespace Edee_Final_Project
 
                 for(int j = i; j < game.AllPlayers.Count; j++)
                 {
-                    if (game.AllPlayers[j].TotalWinnings > game.AllPlayers[min_index].TotalWinnings) 
+                    if (game.AllPlayers[j].TotalWinnings < game.AllPlayers[min_index].TotalWinnings)
                         min_index = j;
                 }
 
