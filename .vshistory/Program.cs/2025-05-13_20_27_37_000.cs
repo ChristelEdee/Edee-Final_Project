@@ -79,13 +79,13 @@ namespace Edee_Final_Project
                     break;
 
                     case 3:
-                        SaveLeaderboard(game, leaderboardPath); //Saving the leaderboard before ending the program
+                        SaveLeaderboard(game, leaderboardPath); //Saving the ALL PLAYERS leaderboard before ending the program
                         mainLoop = false;
                     break;
                 }
             }
 
-            Console.WriteLine("\nThank you for playing!");
+            Console.WriteLine("RAAAAAAAAAAAH");
             Console.ReadLine();
         }
 
@@ -113,7 +113,7 @@ namespace Edee_Final_Project
                         splitLine = lineInFile.Split(","); //Splitting the line into a string array
 
                         player.Name = splitLine[0]; //Assigning the name field
-                        player.TotalWinnings = int.Parse(splitLine[1]); //Assigning the score field
+                        player.TotalWinnings = int.Parse(splitLine[2]); //Assigning the score field
 
                         game.AllPlayers.Add(player); //Adding the player to the previously empty leaderboard
 
@@ -177,7 +177,7 @@ namespace Edee_Final_Project
         {
             int turnCount = 0;
             bool isClockwise = true;
-            bool isThereWinner = true;
+            bool isThereWinner = false;
             string? winner = null;
 
             while (game.DrawDeck.CardsLeft != 0)
@@ -276,7 +276,7 @@ namespace Edee_Final_Project
             }
 
             //Giving a tiny pause for dramatic reasons, idk
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
         static void CheckValidCards(List<Card> hand, Card cardInMiddle, ref List<Card> validCards)
         {
@@ -476,7 +476,7 @@ namespace Edee_Final_Project
             try
             {
                 streamW = new StreamWriter(filePath);
-                for (int i = 0; i < game.AllPlayers.Count; i++)
+                for (int i = 0; i < game.AllPlayers.Count;)
                     streamW.WriteLine($"{game.AllPlayers[i].Name},{game.AllPlayers[i].TotalWinnings}");
             }
             catch (Exception e) //Ouputting an error message if something went wrong

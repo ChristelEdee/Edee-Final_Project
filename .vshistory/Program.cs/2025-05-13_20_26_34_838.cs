@@ -79,13 +79,13 @@ namespace Edee_Final_Project
                     break;
 
                     case 3:
-                        SaveLeaderboard(game, leaderboardPath); //Saving the leaderboard before ending the program
+                        SaveLeaderboard(game, leaderboardPath); //Saving the ALL PLAYERS leaderboard before ending the program
                         mainLoop = false;
                     break;
                 }
             }
 
-            Console.WriteLine("\nThank you for playing!");
+            Console.WriteLine("RAAAAAAAAAAAH");
             Console.ReadLine();
         }
 
@@ -113,7 +113,7 @@ namespace Edee_Final_Project
                         splitLine = lineInFile.Split(","); //Splitting the line into a string array
 
                         player.Name = splitLine[0]; //Assigning the name field
-                        player.TotalWinnings = int.Parse(splitLine[1]); //Assigning the score field
+                        player.TotalWinnings = int.Parse(splitLine[2]); //Assigning the score field
 
                         game.AllPlayers.Add(player); //Adding the player to the previously empty leaderboard
 
@@ -173,11 +173,12 @@ namespace Edee_Final_Project
             Console.WriteLine("\nDealing cards...");
             Thread.Sleep(2000);
         }
+
         static void PlayGame(GameState game, List<Player> playersInRound)
         {
             int turnCount = 0;
             bool isClockwise = true;
-            bool isThereWinner = true;
+            bool isThereWinner = false;
             string? winner = null;
 
             while (game.DrawDeck.CardsLeft != 0)
@@ -276,8 +277,9 @@ namespace Edee_Final_Project
             }
 
             //Giving a tiny pause for dramatic reasons, idk
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
+
         static void CheckValidCards(List<Card> hand, Card cardInMiddle, ref List<Card> validCards)
         {
             for(int i = 0;i < hand.Count;i++)
@@ -292,12 +294,12 @@ namespace Edee_Final_Project
         } 
 
 
+
         static void Display(GameState game, int playerNum, List<Player> playersInRound)
         {
             Console.Clear(); //Clearing the console to keep the ouput clean
             game.DisplayGame(playerNum, playersInRound); //Displaying the gameboard
         }
-
 
         static int GetNextPlayerNum(int playerNum, bool isClockwise)
         {
@@ -310,6 +312,7 @@ namespace Edee_Final_Project
 
             return nextPlayerNum;
         }
+
         static bool CheckForWinner(Hand playerHand)
         {
             if(playerHand.Cards.Count == 0)
@@ -317,6 +320,7 @@ namespace Edee_Final_Project
 
             return false;
         }
+
         static void SortPlayersAndScores(ref List<int> handValueList, ref List<Player> playersInRound)
         {
             int max_index;
@@ -468,6 +472,7 @@ namespace Edee_Final_Project
             Console.WriteLine("\nPress any key to exit this screen.");
             Console.ReadLine();
         }
+
         static void SaveLeaderboard(GameState game, string filePath)
         {
             StreamWriter? streamW = null;
@@ -476,7 +481,7 @@ namespace Edee_Final_Project
             try
             {
                 streamW = new StreamWriter(filePath);
-                for (int i = 0; i < game.AllPlayers.Count; i++)
+                for (int i = 0; i < game.AllPlayers.Count;)
                     streamW.WriteLine($"{game.AllPlayers[i].Name},{game.AllPlayers[i].TotalWinnings}");
             }
             catch (Exception e) //Ouputting an error message if something went wrong

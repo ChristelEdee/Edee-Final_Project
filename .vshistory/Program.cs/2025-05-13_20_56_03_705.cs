@@ -85,7 +85,7 @@ namespace Edee_Final_Project
                 }
             }
 
-            Console.WriteLine("\nThank you for playing!");
+            Console.WriteLine("RAAAAAAAAAAAH");
             Console.ReadLine();
         }
 

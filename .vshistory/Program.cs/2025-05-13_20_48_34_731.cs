@@ -85,7 +85,7 @@ namespace Edee_Final_Project
                 }
             }
 
-            Console.WriteLine("\nThank you for playing!");
+            Console.WriteLine("RAAAAAAAAAAAH");
             Console.ReadLine();
         }
 
@@ -113,7 +113,7 @@ namespace Edee_Final_Project
                         splitLine = lineInFile.Split(","); //Splitting the line into a string array
 
                         player.Name = splitLine[0]; //Assigning the name field
-                        player.TotalWinnings = int.Parse(splitLine[1]); //Assigning the score field
+                        player.TotalWinnings = int.Parse(splitLine[2]); //Assigning the score field
 
                         game.AllPlayers.Add(player); //Adding the player to the previously empty leaderboard
 
