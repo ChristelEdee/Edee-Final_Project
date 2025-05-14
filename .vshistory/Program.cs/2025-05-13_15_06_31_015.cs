@@ -35,7 +35,6 @@ namespace Edee_Final_Project
 
             GameState game = new GameState();
             List<Player> playersInRound = new List<Player>();
-            string leaderboardPath = "../../../leaderboard.txt";
 
             bool mainLoop = true;
 
@@ -44,7 +43,7 @@ namespace Edee_Final_Project
             Console.WriteLine("Created by CHRISTEL 6250046 on May 2025");
             Console.WriteLine("************************************\n");
 
-            LoadLeaderboard(game, leaderboardPath);
+            LoadLeaderboard(game);
 
             SetUpGame(game, ref playersInRound);
             PlayGame(game, playersInRound);
@@ -79,7 +78,7 @@ namespace Edee_Final_Project
                     break;
 
                     case 3:
-                        SaveLeaderboard(game, leaderboardPath);
+                        SaveLeaderboard(game);
                         mainLoop = false;
                     break;
                 }
@@ -92,44 +91,9 @@ namespace Edee_Final_Project
 
         //Important methods:
 
-        static void LoadLeaderboard(GameState game, string filePath)
+        static void LoadLeaderboard(GameState game)
         {
-            string[] splitLine;
 
-            if(File.Exists(filePath))
-            {
-                StreamReader? streamR = null;
-
-                try
-                {
-                    streamR = new StreamReader(filePath);
-
-                    string? lineInFile = streamR.ReadLine(); //Reading a line from the file
-
-                    while(lineInFile != null)
-                    {
-                        Player player = new Player();
-
-                        splitLine = lineInFile.Split(","); //Splitting the line into a string array
-
-                        player.Name = splitLine[0]; //Assigning the name field
-                        player.TotalWinnings = int.Parse(splitLine[2]); //Assigning the score field
-
-                        game.AllPlayers.Add(player); //Adding the player to the previously empty leaderboard
-
-                        lineInFile = streamR.ReadLine(); //Reading the next line of the file
-                    }
-                }
-                catch(Exception e) //Outputting an error message if something went wrong
-                {
-                    Console.WriteLine($"Error reading file: {e.Message}");
-                }
-                finally //Closing the StreamWriter
-                {
-                    if (streamR != null)
-                        streamR.Close();
-                }
-            }
         }
         static void SetUpGame(GameState game, ref List<Player> playersInRound)
         {
@@ -473,26 +437,9 @@ namespace Edee_Final_Project
             Console.ReadLine();
         }
 
-        static void SaveLeaderboard(GameState game, string filePath)
+        static void SaveLeaderboard(GameState game)
         {
-            StreamWriter? streamW = null;
 
-            //Writing the leaderboard info in a text file using the CSV format (each line would be one player's fields):
-            try
-            {
-                streamW = new StreamWriter(filePath);
-                for (int i = 0; i < game.AllPlayers.Count;)
-                    streamW.WriteLine($"{game.AllPlayers[i].Name},{game.AllPlayers[i].TotalWinnings}");
-            }
-            catch (Exception e) //Ouputting an error message if something went wrong
-            {
-                Console.WriteLine($"Error reading file: {e.Message}");
-            }
-            finally //Closing the StreamWriter
-            {
-                if(streamW != null)
-                    streamW.Close();
-            }
         }
         
 

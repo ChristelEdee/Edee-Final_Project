@@ -115,7 +115,7 @@ namespace Edee_Final_Project
                         player.Name = splitLine[0]; //Assigning the name field
                         player.TotalWinnings = int.Parse(splitLine[2]); //Assigning the score field
 
-                        game.AllPlayers.Add(player); //Adding the player to the previously empty leaderboard
+                        game.AllPlayers.Add(player); //Adding the player to the leaderboard
 
                         lineInFile = streamR.ReadLine(); //Reading the next line of the file
                     }
