@@ -1,6 +1,6 @@
-Chris,2078
-Talib,876
-Mariya,591
+Chris,2210
+Talib,981
+Mariya,635
 Benny,459
 Plankton,235
 Joshua,234
@@ -9,13 +9,13 @@ Alexa,211
 Miaaa,187
 Ethan,153
 Mariah,129
-Mooon,110
 AAAAAAH,110
+Mooon,110
 Paxton,78
 Lucas,70
+Poorsha,35
+Jacob,0
 Katie,0
 Lorie,0
-Hello,0
-Jacob,0
 Devhi,0
-Poorsha,0
+Hello,0

@@ -175,21 +175,46 @@ namespace Edee_Final_Project
         }
         static void PlayGame(GameState game, List<Player> playersInRound)
         {
-            int turnCount = 0; //To keep track of the number of turns
-            bool skipNextPlayer = false; //To keep track of skips
+            int turnCount = 0;
+            bool skipNextPlayer = false;
 
-            int direction = 1; //1 = clockwise (true), -1 = counterclockwise (false)
-            string? winner = null; //To keep track of winner
+            int direction = 1; //1 = clockwise, -1 = counterclockwise
+            string? winner = null;
 
-            int currentPlayerIndex = 0; //To keep track of the player indexes
+            bool forceSkip = false; //Used for when the player draws 2/4 cards (their turn gets skipped)
+
+            int currentPlayerIndex = 0;
 
             while (game.DrawDeck.CardsLeft != 0)
             {
-                //Displaying the (updated) gameboard after every turn
+                ////Processing turns:
+                //for (int i = 0; i < playersInRound.Count; i++)
+                //{
+                //    Display(game, i + 1, playersInRound); //Displaying the gameboard
+                //    PlayerTurn(game, game.PlayerHands[i], isClockwise, i + 1); //Processing player turn
+                //    turnCount++;
+
+                //    //Checking for winner once the number of total turns becomes 25:
+                //    if (turnCount >= 25)
+                //    {
+                //        isThereWinner = CheckForWinner(game.PlayerHands[i]);
+
+                //        if (isThereWinner == true)
+                //        {
+                //            winner = playersInRound[i].Name;
+                //            break; //Breaking the for loop early if there's a winner
+                //        }
+
+                //    }
+                //}
+
+                //if (isThereWinner == true)
+                //    break; //Breaking the while loop if there's a winner
+
                 Display(game, currentPlayerIndex + 1, playersInRound);
 
                 //Tracking if the current player is skipped.
-                if (skipNextPlayer)
+                if (skipNextPlayer || forceSkip)
                     skipNextPlayer = false; //This makes sure that it's only the current player that will get skipped, and not the next iteration
                 else
                 {
@@ -204,14 +229,14 @@ namespace Edee_Final_Project
                             direction *= -1; //reversing the order
                     }
                     
-                    //Checking for a winner after
+                    //Checking for winner after the 25th turn
                     if (turnCount >= 10 && CheckForWinner(game.PlayerHands[currentPlayerIndex]))
                     {
                         winner = playersInRound[currentPlayerIndex].Name;
                         break; //The while loop breaks when winner is detected
                     }
 
-                    turnCount++; //To keep tra
+                    turnCount++;
                 }
 
                 currentPlayerIndex = (currentPlayerIndex + direction + playersInRound.Count) % playersInRound.Count;

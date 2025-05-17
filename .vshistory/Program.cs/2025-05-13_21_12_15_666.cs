@@ -175,58 +175,46 @@ namespace Edee_Final_Project
         }
         static void PlayGame(GameState game, List<Player> playersInRound)
         {
-            int turnCount = 0; //To keep track of the number of turns
-            bool skipNextPlayer = false; //To keep track of skips
-
-            int direction = 1; //1 = clockwise (true), -1 = counterclockwise (false)
-            string? winner = null; //To keep track of winner
-
-            int currentPlayerIndex = 0; //To keep track of the player indexes
+            int turnCount = 0;
+            bool isClockwise = true;
+            bool isThereWinner = true;
+            string? winner = null;
 
             while (game.DrawDeck.CardsLeft != 0)
             {
-                //Displaying the (updated) gameboard after every turn
-                Display(game, currentPlayerIndex + 1, playersInRound);
-
-                //Tracking if the current player is skipped.
-                if (skipNextPlayer)
-                    skipNextPlayer = false; //This makes sure that it's only the current player that will get skipped, and not the next iteration
-                else
+                //Processing turns:
+                for (int i = 0; i < playersInRound.Count; i++)
                 {
-                    //Processing player turn
-                    PlayerTurn(game, game.PlayerHands[currentPlayerIndex], direction == 1, direction, currentPlayerIndex, out Card playedCard);
+                    Display(game, i + 1, playersInRound); //Displaying the gameboard
+                    PlayerTurn(game, game.PlayerHands[i], isClockwise, i + 1); //Processing player turn
+                    turnCount++;
 
-                    if(playedCard != null)
+                    //Checking for winner once the number of total turns becomes 25:
+                    if (turnCount >= 25)
                     {
-                        if (playedCard.Rank == Rank.Skip)
-                            skipNextPlayer = true; //Skipping the player
-                        else if (playedCard.Rank == Rank.Reverse)
-                            direction *= -1; //reversing the order
-                    }
-                    
-                    //Checking for a winner after
-                    if (turnCount >= 10 && CheckForWinner(game.PlayerHands[currentPlayerIndex]))
-                    {
-                        winner = playersInRound[currentPlayerIndex].Name;
-                        break; //The while loop breaks when winner is detected
-                    }
+                        isThereWinner = CheckForWinner(game.PlayerHands[i]);
 
-                    turnCount++; //To keep tra
+                        if (isThereWinner == true)
+                        {
+                            winner = playersInRound[i].Name;
+                            break; //Breaking the for loop early if there's a winner
+                        }
+
+                    }
                 }
 
-                currentPlayerIndex = (currentPlayerIndex + direction + playersInRound.Count) % playersInRound.Count;
+                if (isThereWinner == true)
+                    break; //Breaking the while loop if there's a winner
             }
 
             GameOver(game, winner, playersInRound);
         }
 
 
-        static void PlayerTurn(GameState game, Hand playerHand, bool isClockwise, int direction, int playerIndex, out Card playedCard)
+        static void PlayerTurn(GameState game, Hand playerHand, bool isClockwise, int playerNum)
         {
             int count = 0; //Useful for keeping track of how many cards the player can play
-            int nextPlayerIndex = GetNextPlayerNum(playerIndex, direction); //Useful for knowing who's the next player (in case of action cards)
-
-            playedCard = null;
+            int nextPlayerNum = GetNextPlayerNum(playerNum, isClockwise); //Useful for knowing who's the next player (in case of action cards)
 
             //int previousPlayerNum = GetLastPlayerNum(playerNum); //Will be useful later
 
@@ -257,11 +245,7 @@ namespace Edee_Final_Project
                     string answer = AnswerValidation();
 
                     if (answer.ToLower() == "y")
-                    {
-                        game.PlayCard(card, playerHand, game.PlayerHands[nextPlayerIndex]); //Playing the card if player wants to
-                        playedCard = card;
-                    }
-                        
+                        game.PlayCard(card, playerHand, game.PlayerHands[nextPlayerNum]); //Playing the card if player wants to
                 }
             }
             else //Playing
@@ -286,11 +270,9 @@ namespace Edee_Final_Project
                 Console.Write("Choice: ");
                 byte cardNumInput = CardNumValidation(count);
 
-                Card chosenCard = validCards[cardNumInput - 1];
-
                 //Playing the card chosen:
-                game.PlayCard(chosenCard, playerHand, game.PlayerHands[nextPlayerIndex]);
-                playedCard = chosenCard;
+                game.PlayCard(validCards[cardNumInput - 1], playerHand, game.PlayerHands[nextPlayerNum]); 
+
             }
 
             //Giving a tiny pause for dramatic reasons, idk
@@ -317,9 +299,16 @@ namespace Edee_Final_Project
         }
 
 
-        static int GetNextPlayerNum(int playerIndex, int direction)
+        static int GetNextPlayerNum(int playerNum, bool isClockwise)
         {
-            return (playerIndex + direction + 4) % 4;
+            int nextPlayerNum;
+
+            if(isClockwise)
+               nextPlayerNum = playerNum % 4;
+            else
+                nextPlayerNum = (playerNum + 4) % 4;
+
+            return nextPlayerNum;
         }
         static bool CheckForWinner(Hand playerHand)
         {

@@ -175,13 +175,13 @@ namespace Edee_Final_Project
         }
         static void PlayGame(GameState game, List<Player> playersInRound)
         {
-            int turnCount = 0; //To keep track of the number of turns
-            bool skipNextPlayer = false; //To keep track of skips
+            int turnCount = 0;
+            bool skipNextPlayer = false;
 
             int direction = 1; //1 = clockwise (true), -1 = counterclockwise (false)
-            string? winner = null; //To keep track of winner
+            string? winner = null;
 
-            int currentPlayerIndex = 0; //To keep track of the player indexes
+            int currentPlayerIndex = 0; //To keep track of the player indexes)
 
             while (game.DrawDeck.CardsLeft != 0)
             {
@@ -211,7 +211,7 @@ namespace Edee_Final_Project
                         break; //The while loop breaks when winner is detected
                     }
 
-                    turnCount++; //To keep tra
+                    turnCount++;
                 }
 
                 currentPlayerIndex = (currentPlayerIndex + direction + playersInRound.Count) % playersInRound.Count;
