@@ -32,7 +32,6 @@ namespace Edee_Final_Project
             Rank[] ranks = { Rank.Zero, Rank.One, Rank.Two, Rank.Three, Rank.Four, Rank.Five, Rank.Six,
                             Rank.Seven, Rank.Eight, Rank.Nine, Rank.Skip, Rank.Reverse, Rank.PlusTwo, Rank.PlusFour, Rank.ChangeColor };
 
-            //Populating the deck with random cards (going through the while-loop 3 times just to add more cards):
             while(count != 3)
             {
                 foreach (Color color in colors)

@@ -468,23 +468,6 @@ namespace Edee_Final_Project
         {
             return (playerIndex + direction + 4) % 4;
         }
-
-        /*  The CheckForWinner() method checks whether the current player has won the game.
-         *  
-         *  Parameters:
-         *    - playerHand (Hand): The current player's hand of cards.
-         *  
-         *  Returns:
-         *    - (bool) True if the player has no cards left, meaning they’ve won; otherwise, false.
-         *  
-         *  Exceptions:
-         *    - None.
-         *  
-         *  Algorithm:
-         *    - Check if the player's hand contains zero cards.
-         *    - If yes, return true (player has won).
-         *    - Otherwise, return false.
-         */
         static bool CheckForWinner(Hand playerHand)
         {
             if(playerHand.Cards.Count == 0)
@@ -492,27 +475,6 @@ namespace Edee_Final_Project
 
             return false;
         }
-
-        /*  The SortPlayersAndScores() method sorts players and their corresponding hand values 
-         *  in descending order using selection sort.
-         *  
-         *  Parameters:
-         *    - handValueList (ref List<int>): A list of scores representing the value of each player's hand.
-         *    - playersInRound (ref List<Player>): The list of players participating in the round.
-         *      This list will be rearranged to match the order of the sorted scores.
-         *  
-         *  Returns:
-         *    - void (modifies both lists by reference)
-         *  
-         *  Exceptions:
-         *    - None.
-         *  
-         *  Algorithm:
-         *    - For each index i in the hand value list:
-         *      - Find the maximum value from index i to the end of the list.
-         *      - Swap the max value with the value at index i.
-         *      - Perform the same swap in the players list to maintain player-score pairing.
-         */
         static void SortPlayersAndScores(ref List<int> handValueList, ref List<Player> playersInRound)
         {
             int max_index;
@@ -542,27 +504,6 @@ namespace Edee_Final_Project
 
 
 
-        /*  The GameOver() method displays final game results, calculates scores, and updates the leaderboard.
-         *  
-         *  Parameters:
-         *    - game (GameState): The current state of the game including players and their hands.
-         *    - winner (string?): The name of the winner, or null if the game ended without one.
-         *    - playersInRound (List<Player>): The list of players who participated in this round.
-         *  
-         *  Returns: void
-         *  
-         *  Exceptions:
-         *    - None directly thrown.
-         *  
-         *  Algorithm:
-         *    - Display game outcome (winner or deck exhaustion).
-         *    - Calculate hand values for each player using GameState method.
-         *    - Show final scores to the user and sort players by hand value (low to high).
-         *    - Calculate bonus points for 1st and 2nd place based on 3rd and 4th place total scores.
-         *    - Display win values (positive for top players, zero for others).
-         *    - Add win values to each winner's TotalWinnings and update the AllPlayers list.
-         *    - Wait for user input before returning to main menu.
-         */
         static void GameOver(GameState game, string? winner, List<Player> playersInRound)
         {
             List<int> handValuesList = new List<int>();
@@ -646,23 +587,6 @@ namespace Edee_Final_Project
             Console.WriteLine("\nPress any key to exit this screen.");
             Console.ReadLine();
         }
-
-        /*  The SortLeaderboard() method sorts the AllPlayers list in descending order by TotalWinnings.
-         *  
-         *  Parameters:
-         *    - game (GameState): Contains the list of all players to sort.
-         *  
-         *  Returns: void
-         *  
-         *  Exceptions:
-         *    - None.
-         *  
-         *  Algorithm:
-         *    - Loop through each player in AllPlayers.
-         *    - For each position, find the player with the highest score from the remaining list.
-         *    - Swap the current player with the one holding the max score (Selection Sort).
-         *    - This places players with higher scores at the top of the leaderboard.
- */
         static void SortLeaderboard(GameState game)
         {
             int min_index;
@@ -685,23 +609,6 @@ namespace Edee_Final_Project
                 }
             }
         }
-
-        /*  The DisplayLeaderboard() method outputs the current leaderboard to the console in ranked order.
-         *  
-         *  Parameters:
-         *    - game (GameState): Contains the AllPlayers list to display.
-         *  
-         *  Returns: void
-         *  
-         *  Exceptions:
-         *    - None.
-         *  
-         *  Algorithm:
-         *    - Clear the console for clean display.
-         *    - Display a formatted table showing player names and their total win scores.
-         *    - Use row separators to visually separate entries.
-         *    - Wait for user to press a key before exiting.
-         */
         static void DisplayLeaderboard(GameState game)
         {
             Console.Clear();
@@ -719,25 +626,6 @@ namespace Edee_Final_Project
             Console.WriteLine("\nPress any key to exit this screen.");
             Console.ReadLine();
         }
-
-        /*  The SaveLeaderboard() method writes the current leaderboard to a text file using CSV formatting.
-         *  
-         *  Parameters:
-         *    - game (GameState): Contains the AllPlayers list to save.
-         *    - filePath (string): The path of the file where data will be saved.
-         *  
-         *  Returns: void
-         *  
-         *  Exceptions:
-         *    - Catches and displays exceptions related to file writing.
-         *  
-         *  Algorithm:
-         *    - Attempt to open a StreamWriter for the given file path.
-         *    - For each player in the AllPlayers list:
-         *        - Write a line with their name and total winnings separated by a comma.
-         *    - If an error occurs, catch and display an error message.
-         *    - Ensure the file is closed afterward using finally block.
-         */
         static void SaveLeaderboard(GameState game, string filePath)
         {
             StreamWriter? streamW = null;
