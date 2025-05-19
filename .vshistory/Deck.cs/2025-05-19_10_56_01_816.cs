@@ -54,21 +54,6 @@ namespace Edee_Final_Project
 
 
         //Methods:
-
-        /*  The Shuffle() method randomizes the order of cards in the deck using the Fisher-Yates shuffle algorithm.
-         *  
-         *  Parameters: None
-         *  Returns: None
-         *  
-         *  Algorithm:
-         *    - Initialize a Random object for generating random indices.
-         *    - Set n to the number of cards left in the deck.
-         *    - While n is greater than 1:
-         *      - Decrement n by 1.
-         *      - Generate a random index i between 0 and n inclusive.
-         *      - Swap the card at index i with the card at index n.
-         *    - Result: The deck is shuffled in-place.
-         */
         public void Shuffle()
         {
             Random random = new Random();
@@ -86,18 +71,6 @@ namespace Edee_Final_Project
             }
         }
 
-        /*  The Draw() method removes and returns the top card from the deck.
-         *  
-         *  Parameters: None
-         *  Returns: Card - the card drawn from the top of the deck, or null if the deck is empty.
-         *  
-         *  Algorithm:
-         *    - Check if there are cards left in the deck.
-         *    - If no cards are left, return null.
-         *    - Otherwise, get the first card in the deck.
-         *    - Remove that card from the deck.
-         *    - Return the removed card.
-         */
         public Card Draw()
         {
             if (CardsLeft == 0)
@@ -109,14 +82,6 @@ namespace Edee_Final_Project
             return topCard;
         }
 
-        /*  The ReputCardInDeck() method adds a card back into the deck.
-         *  
-         *  Parameters: Card card - the card to add back into the deck.
-         *  Returns: None
-         *  
-         *  Algorithm:
-         *    - Add the specified card to the end of the deck list.
-         */
         public void ReputCardInDeck(Card card)
         {
             _deck.Add(card);

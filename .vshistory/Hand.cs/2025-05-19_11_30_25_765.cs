@@ -90,15 +90,7 @@ namespace Edee_Final_Project
             Console.ForegroundColor = ConsoleColor.White; // Reset color after
         }
 
-        /*  The DisplayHiddenHand() method prints a placeholder "[ UNO ]" for each card in the hand without revealing card details.
-         *  
-         *  Parameters: None
-         *  Returns: None
-         *  
-         *  Algorithm:
-         *    - Loop through each card in the cards list.
-         *    - For each card, print the string "[ UNO ] " to the console.
-         */
+
         public void DisplayHiddenHand()
         {
             foreach (Card card in cards)
@@ -107,20 +99,6 @@ namespace Edee_Final_Project
             }
         }
 
-        /*  The GetCardColor() method returns the ConsoleColor that corresponds to a card's color.
-         *  Special cards (like +4 or ChangeColor) default to DarkGray.
-         *  
-         *  Parameters: Card card - the card whose color is being checked.
-         *  Returns: ConsoleColor - the console color representing the card's color.
-         *  
-         *  Algorithm:
-         *    - Initialize color to DarkGray (default for special cards).
-         *    - If card color is Red, set color to Red.
-         *    - If card color is Green, set color to Green.
-         *    - If card color is Blue, set color to Blue.
-         *    - If card color is Yellow, set color to Yellow.
-         *    - Return the determined ConsoleColor.
-         */
         public ConsoleColor GetCardColor(Card card)
         {
             ConsoleColor color = ConsoleColor.DarkGray; //Color for special cards (+4 or ChangeColor)
@@ -137,22 +115,7 @@ namespace Edee_Final_Project
             return color;
         }
 
-        /*  The SortHandByColor() method sorts the hand of cards by color priority using selection sort.
-         *  The sorting order is: Red, Green, Blue, Yellow, then Special Cards.
-         *  
-         *  Parameters: None
-         *  Returns: None
-         *  
-         *  Algorithm:
-         *    - For each index i from 0 to Size - 1:
-         *      - Set minIndex to i.
-         *      - For each index j from i + 1 to Size - 1:
-         *        - Compare cards[j] and cards[minIndex] using the overloaded < operator.
-         *        - If cards[j] is less than cards[minIndex], update minIndex to j.
-         *      - If minIndex is different from i, swap cards[i] and cards[minIndex].
-         *    - Result: cards list is sorted by color priority.
-         */
-        public void SortHandByColor()
+        public void SortHandByColor() //Note: This will sort the hand like this: Red, Green, Blue, Yellow, Special Cards
         {
             int minIndex;
 
