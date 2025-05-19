@@ -287,6 +287,7 @@ namespace Edee_Final_Project
          *    - hand (List<Card>): The player's hand.
          *    - count (ref int): Will be updated with how many playable cards are found.
          *  Returns: bool (true if at least one card can be played)
+         *  Exceptions: None
          *  
          *  Algorithm:
          *    - For each card, check if color or rank matches the middle card, or if it is a Wild card.
@@ -311,16 +312,6 @@ namespace Edee_Final_Project
             return false;
         }
 
-        /*  The CanYouPlay() method checks if a single drawn card is playable.
-         *  
-         *  Parameters:
-         *    - cardDrawn (Card): The drawn card.
-         *  Returns: bool (true if it can be played)
-         *  
-         *  Algorithm:
-         *    - Check if card matches in color or rank, or is a Wild card.
-         *    - Return true if match found, else false.
-         */
         public bool CanYouPlay(Card cardDrawn)
         {
             if (CardInMiddle.Color == cardDrawn.Color)
@@ -333,17 +324,6 @@ namespace Edee_Final_Project
             return false;
         }
 
-        /*  The ChangeColor() method prompts the user to choose a color for a Wild or PlusFour card.
-         *  
-         *  Parameters:
-         *    - specialCard (Card): The card whose color needs to be changed.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - Ask the user to choose a color.
-         *    - Validate the input until a correct color is provided.
-         *    - Set the chosen color to the special card.
-         */
         public void ChangeColor(Card specialCard)
         {          
             Console.Write("\nChoose a color: ");
@@ -352,19 +332,6 @@ namespace Edee_Final_Project
             specialCard.Color = colorInput;   
         }
 
-        /*  The CalculateFinalHandValue() method computes the total negative value of a player's hand.
-         *  
-         *  Parameters:
-         *    - hand (List<Card>): The player's final hand.
-         *  Returns: int (negative score based on hand contents)
-         *  
-         *  Algorithm:
-         *    - For each card, subtract points based on its rank:
-         *        - Number cards subtract their face value.
-         *        - Action cards (Skip, Reverse, PlusTwo) subtract 20.
-         *        - Wild cards (PlusFour, ChangeColor) subtract 50.
-         *    - Return the total value.
-         */
         public int CalculateFinalHandValue(List<Card> hand)
         {
             Rank[] numberedRanks = { Rank.Zero, Rank.One, Rank.Two, Rank.Three, Rank.Four, Rank.Five, Rank.Six,
@@ -387,17 +354,6 @@ namespace Edee_Final_Project
 
 
         //Extra methods
-
-        /*  The GetCardColor() method returns the appropriate ConsoleColor for the given card.
-         *  
-         *  Parameters:
-         *    - card (Card): The card to check.
-         *  Returns: ConsoleColor (corresponding to card’s color)
-         *  
-         *  Algorithm:
-         *    - Match card's Color enum to corresponding ConsoleColor.
-         *    - Default to DarkGray for Wild cards.
-         */
         public ConsoleColor GetCardColor(Card card)
         {
             ConsoleColor color = ConsoleColor.DarkGray; //Color for special cards (+4 or ChangeColor)
@@ -414,16 +370,6 @@ namespace Edee_Final_Project
             return color;
         }
 
-        /*  The ColorValidation() method reads user input and ensures it's a valid color (Red, Green, Blue, Yellow).
-         *  
-         *  Parameters: None
-         *  Returns: Color (validated user-selected color)
-         *  
-         *  Algorithm:
-         *    - Try to parse the user input into a Color enum.
-         *    - Repeat prompt until a valid Color is entered.
-         *    - Return the Color.
-         */
         public Color ColorValidation()
         {
             Color colorInput;

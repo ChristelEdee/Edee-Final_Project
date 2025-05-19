@@ -338,6 +338,7 @@ namespace Edee_Final_Project
          *  Parameters:
          *    - specialCard (Card): The card whose color needs to be changed.
          *  Returns: void
+         *  Exceptions: None
          *  
          *  Algorithm:
          *    - Ask the user to choose a color.
@@ -352,19 +353,6 @@ namespace Edee_Final_Project
             specialCard.Color = colorInput;   
         }
 
-        /*  The CalculateFinalHandValue() method computes the total negative value of a player's hand.
-         *  
-         *  Parameters:
-         *    - hand (List<Card>): The player's final hand.
-         *  Returns: int (negative score based on hand contents)
-         *  
-         *  Algorithm:
-         *    - For each card, subtract points based on its rank:
-         *        - Number cards subtract their face value.
-         *        - Action cards (Skip, Reverse, PlusTwo) subtract 20.
-         *        - Wild cards (PlusFour, ChangeColor) subtract 50.
-         *    - Return the total value.
-         */
         public int CalculateFinalHandValue(List<Card> hand)
         {
             Rank[] numberedRanks = { Rank.Zero, Rank.One, Rank.Two, Rank.Three, Rank.Four, Rank.Five, Rank.Six,
@@ -387,17 +375,6 @@ namespace Edee_Final_Project
 
 
         //Extra methods
-
-        /*  The GetCardColor() method returns the appropriate ConsoleColor for the given card.
-         *  
-         *  Parameters:
-         *    - card (Card): The card to check.
-         *  Returns: ConsoleColor (corresponding to card’s color)
-         *  
-         *  Algorithm:
-         *    - Match card's Color enum to corresponding ConsoleColor.
-         *    - Default to DarkGray for Wild cards.
-         */
         public ConsoleColor GetCardColor(Card card)
         {
             ConsoleColor color = ConsoleColor.DarkGray; //Color for special cards (+4 or ChangeColor)
@@ -414,16 +391,6 @@ namespace Edee_Final_Project
             return color;
         }
 
-        /*  The ColorValidation() method reads user input and ensures it's a valid color (Red, Green, Blue, Yellow).
-         *  
-         *  Parameters: None
-         *  Returns: Color (validated user-selected color)
-         *  
-         *  Algorithm:
-         *    - Try to parse the user input into a Color enum.
-         *    - Repeat prompt until a valid Color is entered.
-         *    - Return the Color.
-         */
         public Color ColorValidation()
         {
             Color colorInput;

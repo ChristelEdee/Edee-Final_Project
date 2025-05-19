@@ -109,15 +109,6 @@ namespace Edee_Final_Project
             }
         }
 
-        /*  The DrawOneCard() method draws and returns one card from the draw deck.
-         *  
-         *  Parameters: None
-         *  Returns: Card (the card that was drawn)
-         *  
-         *  Algorithm:
-         *    - Draw the top card from the draw deck.
-         *    - Return the drawn card.
-         */
         public Card DrawOneCard()
         {
             Card drawnCard = _drawDeck.Draw();
@@ -125,18 +116,6 @@ namespace Edee_Final_Project
             return drawnCard;
         }
 
-        /*  The DrawCards() method forces a player to draw cards based on the value of a PlusTwo or PlusFour card.
-         *  
-         *  Parameters:
-         *    - plusCard (Card): The card causing the draw action.
-         *    - playerHand (Hand): The hand of the player who must draw cards.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - If the card is PlusTwo, draw 2 cards.
-         *    - If the card is PlusFour, draw 4 cards.
-         *    - Add each drawn card to the specified player's hand.
-         */
         public void DrawCards(Card plusCard, Hand playerHand)
         {
             if(plusCard.Rank == Rank.PlusTwo) //+2
@@ -157,20 +136,6 @@ namespace Edee_Final_Project
             }
         }
 
-        /*  The PlayCard() method plays a card, updates the card in the middle, and triggers any card effects (draw or color change).
-         *  
-         *  Parameters:
-         *    - card (Card): The card being played.
-         *    - playerHand (Hand): The player playing the card.
-         *    - nextPlayerHand (Hand): The next player, in case draw cards apply to them.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - Remove the card from the current player’s hand.
-         *    - Add the card to the top of the discard pile (_cardsInMiddle).
-         *    - If the card is PlusTwo or PlusFour, make the next player draw cards.
-         *    - If the card is ChangeColor or PlusFour, prompt the user to choose a color.
-         */
         public void PlayCard(Card card, Hand playerHand, Hand nextPlayerHand)
         {
             playerHand.RemoveCard(card);
@@ -189,19 +154,6 @@ namespace Edee_Final_Project
                 ChangeColor(card);
         }
 
-        /*  The DisplayGame() method prints the game board with visible and hidden hands, and the current middle card.
-         *  
-         *  Parameters:
-         *    - playerNum (int): Index of the player whose hand should be visible.
-         *    - playersInRound (List<Player>): List of players in the round.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - Display the name of each player.
-         *    - For the current player, show full hand.
-         *    - For others, show a hidden (X) hand.
-         *    - Display the card currently in the middle with its color.
-         */
         public void DisplayGame(int playerNum, List<Player> playersInRound)
         {
             Console.WriteLine("UNO\n");
@@ -210,13 +162,13 @@ namespace Edee_Final_Project
             {
                 Console.WriteLine($"{playersInRound[i].Name}");
 
-                if (i == playerNum - 1) //Displaying the player's hand (cards visible)
+                if (i == playerNum - 1)
                 {
                     _playerHands[i].DisplayHand();
                     Console.WriteLine("\n");
 
                 }
-                else //Displaying the other players' hand (cards not visible)
+                else
                 {
                     _playerHands[i].DisplayHiddenHand();
                     Console.WriteLine("\n");
@@ -235,16 +187,6 @@ namespace Edee_Final_Project
 
         }
 
-        /*  The DisplayGameOver() method shows each player's final hand and hand value at the end of the game.
-         *  
-         *  Parameters:
-         *    - playersInRound (List<Player>): Players in the current round.
-         *    - handValueList (List<int>): Their final hand scores.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - For each player, display their name, final hand value, and cards in hand.
-         */
         public void DisplayGameOver(List<Player> playersInRound, List<int> handValueList)
         {
             for (int i = 0; i < _playerHands.Count; i++)
@@ -255,17 +197,6 @@ namespace Edee_Final_Project
             }
         }
 
-        /*  The PutFirstCardInMIddle() method sets the first valid card (not special) as the starting card in the middle.
-         *  
-         *  Parameters: None
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - Draw a card from the deck.
-         *    - If it is a special card (like Skip or PlusFour), return it to the deck and draw another.
-         *    - Repeat until a normal card is found.
-         *    - Add it to the middle pile.
-         */
         public void PutFirstCardInMIddle()
         {
             Rank[] specialRanks = { Rank.Skip, Rank.Reverse, Rank.PlusTwo, Rank.PlusFour, Rank.ChangeColor };
@@ -281,18 +212,6 @@ namespace Edee_Final_Project
             _cardsInMiddle.Add(card);
         }
 
-        /*  The CanYouPlay() method checks if the player has any playable cards.
-         *  
-         *  Parameters:
-         *    - hand (List<Card>): The player's hand.
-         *    - count (ref int): Will be updated with how many playable cards are found.
-         *  Returns: bool (true if at least one card can be played)
-         *  
-         *  Algorithm:
-         *    - For each card, check if color or rank matches the middle card, or if it is a Wild card.
-         *    - If any match, increment the count.
-         *    - Return true if count > 0, else false.
-         */
         public bool CanYouPlay(List<Card> hand, ref int count)
         {
             for (int i = 0; i < hand.Count; i++)
@@ -311,16 +230,6 @@ namespace Edee_Final_Project
             return false;
         }
 
-        /*  The CanYouPlay() method checks if a single drawn card is playable.
-         *  
-         *  Parameters:
-         *    - cardDrawn (Card): The drawn card.
-         *  Returns: bool (true if it can be played)
-         *  
-         *  Algorithm:
-         *    - Check if card matches in color or rank, or is a Wild card.
-         *    - Return true if match found, else false.
-         */
         public bool CanYouPlay(Card cardDrawn)
         {
             if (CardInMiddle.Color == cardDrawn.Color)
@@ -333,17 +242,6 @@ namespace Edee_Final_Project
             return false;
         }
 
-        /*  The ChangeColor() method prompts the user to choose a color for a Wild or PlusFour card.
-         *  
-         *  Parameters:
-         *    - specialCard (Card): The card whose color needs to be changed.
-         *  Returns: void
-         *  
-         *  Algorithm:
-         *    - Ask the user to choose a color.
-         *    - Validate the input until a correct color is provided.
-         *    - Set the chosen color to the special card.
-         */
         public void ChangeColor(Card specialCard)
         {          
             Console.Write("\nChoose a color: ");
@@ -352,19 +250,6 @@ namespace Edee_Final_Project
             specialCard.Color = colorInput;   
         }
 
-        /*  The CalculateFinalHandValue() method computes the total negative value of a player's hand.
-         *  
-         *  Parameters:
-         *    - hand (List<Card>): The player's final hand.
-         *  Returns: int (negative score based on hand contents)
-         *  
-         *  Algorithm:
-         *    - For each card, subtract points based on its rank:
-         *        - Number cards subtract their face value.
-         *        - Action cards (Skip, Reverse, PlusTwo) subtract 20.
-         *        - Wild cards (PlusFour, ChangeColor) subtract 50.
-         *    - Return the total value.
-         */
         public int CalculateFinalHandValue(List<Card> hand)
         {
             Rank[] numberedRanks = { Rank.Zero, Rank.One, Rank.Two, Rank.Three, Rank.Four, Rank.Five, Rank.Six,
@@ -387,17 +272,6 @@ namespace Edee_Final_Project
 
 
         //Extra methods
-
-        /*  The GetCardColor() method returns the appropriate ConsoleColor for the given card.
-         *  
-         *  Parameters:
-         *    - card (Card): The card to check.
-         *  Returns: ConsoleColor (corresponding to card’s color)
-         *  
-         *  Algorithm:
-         *    - Match card's Color enum to corresponding ConsoleColor.
-         *    - Default to DarkGray for Wild cards.
-         */
         public ConsoleColor GetCardColor(Card card)
         {
             ConsoleColor color = ConsoleColor.DarkGray; //Color for special cards (+4 or ChangeColor)
@@ -414,16 +288,6 @@ namespace Edee_Final_Project
             return color;
         }
 
-        /*  The ColorValidation() method reads user input and ensures it's a valid color (Red, Green, Blue, Yellow).
-         *  
-         *  Parameters: None
-         *  Returns: Color (validated user-selected color)
-         *  
-         *  Algorithm:
-         *    - Try to parse the user input into a Color enum.
-         *    - Repeat prompt until a valid Color is entered.
-         *    - Return the Color.
-         */
         public Color ColorValidation()
         {
             Color colorInput;
